@@ -3,10 +3,12 @@ import logo from './logo.svg';
 import './App.css';
 import Users from './components/Users/Users';
 import Repositories from './components/Repositories/Repositories';
+import Search from './components/Search/Search';
 
 function App() {
   return (
-    <div className="App8">
+    <div>
+      <Search />
       <Users />
       <Repositories />
     </div>
