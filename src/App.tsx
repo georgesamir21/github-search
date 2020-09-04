@@ -1,4 +1,10 @@
 import React from 'react';
+import {
+  Switch,
+  Route,
+  BrowserRouter as Router,
+  Redirect
+} from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import Users from './components/Users/Users';
@@ -9,8 +15,21 @@ function App() {
   return (
     <div>
       <Search />
-      <Users />
-      <Repositories />
+
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Users />
+          </Route>
+          <Route path="/users">
+            <Redirect to="/" />
+          </Route>
+          <Route path="/repos">
+            <Repositories />
+          </Route>
+        </Switch>
+      </Router>
+
     </div>
   );
 }
