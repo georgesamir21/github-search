@@ -8,7 +8,7 @@ import { getRepos } from '../../store/actions/repos';
 const Repositories = (props: ReposatoriesProps) => (
   <div>
     <p>Reposatories Component Works!</p>
-    <p>{props.reposatories.length}</p>
+    <p>{JSON.stringify(props.reposatories)}</p>
     <button onClick={props.testDispatch}>test dispatch</button>
   </div>
 );
