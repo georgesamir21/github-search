@@ -8,4 +8,6 @@ const store: Store = createStore(combineReducers({
   reposatories: reposReducer
 }));
 
+store.subscribe(() => console.log(store.getState()));
+
 export default store;
