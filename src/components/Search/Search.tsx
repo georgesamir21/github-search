@@ -1,22 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as _ from 'lodash';
+import { debounce } from 'lodash';
 import { AppState } from '../../store/store';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
-import { setFilter } from '../../store/actions/filter';
+import { setFilter, startApiSearch } from '../../store/actions/filter';
 class Search extends Component<Props> {
   state = {
-    searchFilter: '',
+    filterType: 'users',
   };
 
-  selectChangeHandler = (e: any) => {
+  selectChangeHandler = async (e: any) => {
     e.persist();
+    await this.setState({ filterType: e.target.value });
+    this.props.startSearch(this.props.textFilter, this.state.filterType);
   };
 
   searchInputChangeHandler = (e: any) => {
     e.persist();
     this.props.onTextFilterChanged(e.target.value);
+    // TODO:: need check debounce is working good!
+    /*const debouncedSearch = debounce(
+      (textFilter: string, filterType: string) => {
+        if (textFilter.length >= 3) {
+          this.props.startSearch(textFilter, filterType);
+        }
+      },
+      500
+    );
+
+    debouncedSearch(this.props.textFilter, this.state.filterType);*/
+    this.props.startSearch(this.props.textFilter, this.state.filterType);
   };
 
   render() {
@@ -36,9 +50,12 @@ class Search extends Component<Props> {
             value={this.props.textFilter}
             placeholder="Start typing to search"
           />
-          <select onChange={this.selectChangeHandler}>
+          <select
+            onChange={this.selectChangeHandler}
+            value={this.state.filterType}
+          >
             <option value="users">Users</option>
-            <option value="reposatories">Reposatories</option>
+            <option value="repositories">Repositories</option>
           </select>
         </div>
       </div>
@@ -52,6 +69,7 @@ interface LinkedStateProps {
 
 interface LinkedDispatchProps {
   onTextFilterChanged: (input: string) => void;
+  startSearch: (textFilter: string, filterType: string) => void;
 }
 
 type Props = LinkedStateProps & LinkedDispatchProps;
@@ -66,6 +84,8 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   return {
     onTextFilterChanged: (textFilter: string) =>
       dispatch(setFilter(textFilter)),
+    startSearch: (textFilter: string, filterType: string) =>
+      dispatch(startApiSearch(textFilter, filterType)),
   };
 };
 

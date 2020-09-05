@@ -1,29 +1,26 @@
 import React from 'react';
-import { connect, MapStateToProps, MapDispatchToProps } from 'react-redux';
-import { ReposatoriesProps } from '../../interfaces/ReposatoreisProps';
-import { AnyAction, Dispatch } from 'redux';
-import { getRepos } from '../../store/actions/repos';
-import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import { connect } from 'react-redux';
 import { AppState } from '../../store/store';
 
-const Repositories = (props: ReposatoriesProps) => (
+const Repositories = (props: Props) => (
   <div>
     <p>Reposatories Component Works!</p>
-    <p>{JSON.stringify(props.reposatories)}</p>
-    <button onClick={props.testDispatch}>test dispatch</button>
+    <p>{props.reposatories.length}</p>
   </div>
 );
+
+interface LinkedStateProps {
+  reposatories: any;
+  textFilter: string;
+}
+
+type Props = LinkedStateProps;
 
 const mapStateToProps = (state: AppState) => {
   return {
     reposatories: state.reposatories,
+    textFilter: state.filter.textFilter,
   };
 };
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
-  return {
-    testDispatch: () => dispatch(getRepos({ repoName: 'react-redux' })),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Repositories);
+export default connect(mapStateToProps)(Repositories);
