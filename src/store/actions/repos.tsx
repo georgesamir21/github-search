@@ -2,7 +2,6 @@ import { AnyAction, Dispatch, Action } from 'redux';
 import axios from 'axios';
 import { baseApiUrl } from '../../environment/environment';
 import { ThunkAction } from 'redux-thunk';
-import { AppState } from '../../interfaces/AppState';
 export const GET_REPOS = 'GET_REPOS';
 
 const gotRepos = (repos: any) => {

@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect, MapStateToProps, MapDispatchToProps } from 'react-redux';
-import { AppState } from '../../interfaces/AppState';
 import { ReposatoriesProps } from '../../interfaces/ReposatoreisProps';
 import { AnyAction, Dispatch } from 'redux';
 import { getRepos } from '../../store/actions/repos';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import { AppState } from '../../store/store';
 
 const Repositories = (props: ReposatoriesProps) => (
   <div>
