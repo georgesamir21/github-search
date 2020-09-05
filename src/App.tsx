@@ -14,19 +14,14 @@ import Search from './components/Search/Search';
 function App() {
   return (
     <div>
-      <Search />
-
       <Router>
+        <Search />
         <Switch>
-          <Route exact path="/">
-            <Users />
-          </Route>
-          <Route path="/users">
+          <Route exact path="/"  component={Users} />
+          <Route path="/users" >
             <Redirect to="/" />
           </Route>
-          <Route path="/repos">
-            <Repositories />
-          </Route>
+          <Route path="/repositories" title="test" component={Repositories}  />
         </Switch>
       </Router>
 

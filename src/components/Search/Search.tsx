@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { debounce } from 'lodash';
-import store, { AppState } from '../../store/store';
+import { AppState } from '../../store/store';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import { setFilter, startApiSearch } from '../../store/actions/filter';
@@ -10,31 +11,32 @@ class Search extends Component<Props> {
     filterType: 'users',
   };
 
-  selectChangeHandler = async (e: any) => {
-    e.persist();
-    await this.setState({ filterType: e.target.value });
-    this.props.startSearch(this.props.textFilter, this.state.filterType);
+  componentDidMount() {
+    if (this.props.location.pathname.indexOf('repositories') > -1) {
+      this.setState({ filterType: 'repositories' }); 
+      console.log(this.state)
+    }
+  }
+
+  startApiSearch = (textFilter: string, filterType: string) => {
+    if (textFilter.length >= 3) {
+      this.props.startSearch(textFilter, filterType);
+    }
+  }
+
+  debouncedSearch = debounce((textFilter: string, filterType: string) => {
+    this.startApiSearch(textFilter, filterType);
+  }, 500);
+
+  selectChangeHandler = async (value: string) => {
+    await this.setState({ filterType: value });
+    this.props.history.push(`/${value}`);
+    this.startApiSearch(this.props.textFilter, this.state.filterType);
   };
 
-  searchInputChangeHandler = (e: any) => {
-    e.persist();
-    this.props.onTextFilterChanged(e.target.value);
-    // TODO:: need check debounce is working good!
-    const debouncedSearch = debounce(
-      (textFilter: string, filterType: string) => {
-        if (textFilter.length >= 3) {
-          // console.log('should search for', this.props.textFilter)
-          this.props.startSearch(textFilter, filterType);
-        }
-      },
-      500
-    );
-
-    debouncedSearch(this.props.textFilter, this.state.filterType);
-    // console.log(this.props.textFilter, store.getState());
-    // if (this.props.textFilter.length >= 3) {
-    //   this.props.startSearch(this.props.textFilter, this.state.filterType);
-    // }
+  searchInputChangeHandler = (value: string) => {
+    this.props.onTextFilterChanged(value);
+    this.debouncedSearch(value, this.state.filterType);
   };
 
   render() {
@@ -49,13 +51,13 @@ class Search extends Component<Props> {
         </div>
         <div>
           <input
-            onChange={this.searchInputChangeHandler}
+            onChange={(e) => this.searchInputChangeHandler(e.target.value)}
             type="text"
             value={this.props.textFilter}
             placeholder="Start typing to search"
           />
           <select
-            onChange={this.selectChangeHandler}
+            onChange={(e) => this.selectChangeHandler(e.target.value)}
             value={this.state.filterType}
           >
             <option value="users">Users</option>
@@ -77,7 +79,7 @@ interface LinkedDispatchProps {
   startSearch: (textFilter: string, filterType: string) => void;
 }
 
-type Props = LinkedStateProps & LinkedDispatchProps;
+type Props = LinkedStateProps & LinkedDispatchProps & RouteComponentProps;
 
 const mapStateToProps = (state: AppState) => {
   return {
@@ -94,4 +96,4 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Search));

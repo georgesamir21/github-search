@@ -1,17 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../../store/store';
+import { IReposatories } from '../../types/reposatoreis';
+import RepoCard from '../RepoCard/RepoCard';
 
 const Repositories = (props: Props) => (
   <div>
-    <p>Reposatories Component Works!</p>
-    <p>{props.reposatories.length}</p>
+    {props.reposatories.map((repo) => (
+      <RepoCard key={repo.id} {...repo} />
+    ))}
   </div>
 );
 
 interface LinkedStateProps {
-  reposatories: any;
-  textFilter: string;
+  reposatories: IReposatories[];
 }
 
 type Props = LinkedStateProps;
@@ -19,7 +21,6 @@ type Props = LinkedStateProps;
 const mapStateToProps = (state: AppState) => {
   return {
     reposatories: state.reposatories,
-    textFilter: state.filter.textFilter,
   };
 };
 
