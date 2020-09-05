@@ -4,6 +4,7 @@ import { AppState } from '../../interfaces/AppState';
 import { ReposatoriesProps } from '../../interfaces/ReposatoreisProps';
 import { AnyAction, Dispatch } from 'redux';
 import { getRepos } from '../../store/actions/repos';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 const Repositories = (props: ReposatoriesProps) => (
   <div>
@@ -19,10 +20,10 @@ const mapStateToProps = (state: AppState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   return {
-    testDispatch: () => dispatch(getRepos({repoName: 'react-redux'})),
-  }
-}
+    testDispatch: () => dispatch(getRepos({ repoName: 'react-redux' })),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Repositories);

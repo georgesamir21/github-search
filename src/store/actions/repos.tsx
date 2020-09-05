@@ -5,17 +5,17 @@ import { ThunkAction } from 'redux-thunk';
 import { AppState } from '../../interfaces/AppState';
 export const GET_REPOS = 'GET_REPOS';
 
-const shit = (r: any) => {
+const gotRepos = (repos: any) => {
   return {
     type: GET_REPOS,
-    result: r
+    result: repos
   }
 }
 
 export const getRepos = (payload: { repoName: string }) => {
-  // console.log(payload)
   return async (dispatch: Dispatch) => {
-    const { data } = await axios.get(`${baseApiUrl}/repos?q=${payload.repoName}`);
-    dispatch(shit(data));
+    const { data } = await axios.get(`${baseApiUrl}/repositories?q=${payload.repoName}`);
+    console.log(data.items);
+    dispatch(gotRepos(data.items));
   }
 }
