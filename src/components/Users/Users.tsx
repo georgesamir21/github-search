@@ -1,13 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { AppState } from '../../store/store';
+import { IUsers } from '../../types/users';
+import UserCard from '../UserCard/UserCard';
 
-class Users extends Component {
-  render() {
-    return (
-      <div>
-        <p>Users Component Works!</p>
-      </div>
-    );
-  }
+const Users = (props: Props) => (
+  <div>
+    {props.users.map((user) => (
+      <UserCard key={user.id} {...user} />
+    ))}
+  </div>
+);
+
+interface LinkedStateProps {
+  users: IUsers[];
 }
 
-export default Users;
+type Props = LinkedStateProps;
+
+const mapStateToProps = (state: AppState) => {
+  return {
+    users: state.users,
+  };
+};
+
+export default connect(mapStateToProps)(Users);

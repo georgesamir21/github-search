@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { debounce } from 'lodash';
-import { AppState } from '../../store/store';
+import store, { AppState } from '../../store/store';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import { setFilter, startApiSearch } from '../../store/actions/filter';
@@ -20,17 +20,21 @@ class Search extends Component<Props> {
     e.persist();
     this.props.onTextFilterChanged(e.target.value);
     // TODO:: need check debounce is working good!
-    /*const debouncedSearch = debounce(
+    const debouncedSearch = debounce(
       (textFilter: string, filterType: string) => {
         if (textFilter.length >= 3) {
+          // console.log('should search for', this.props.textFilter)
           this.props.startSearch(textFilter, filterType);
         }
       },
       500
     );
 
-    debouncedSearch(this.props.textFilter, this.state.filterType);*/
-    this.props.startSearch(this.props.textFilter, this.state.filterType);
+    debouncedSearch(this.props.textFilter, this.state.filterType);
+    // console.log(this.props.textFilter, store.getState());
+    // if (this.props.textFilter.length >= 3) {
+    //   this.props.startSearch(this.props.textFilter, this.state.filterType);
+    // }
   };
 
   render() {
@@ -58,6 +62,7 @@ class Search extends Component<Props> {
             <option value="repositories">Repositories</option>
           </select>
         </div>
+        <div>Searching for {this.props.textFilter}</div>
       </div>
     );
   }
