@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { debounce } from 'lodash';
 import { AppState } from '../../store/store';
@@ -11,18 +11,32 @@ class Search extends Component<Props> {
     filterType: 'users',
   };
 
+  searchItems = [
+    {
+      value: 'users',
+      label: 'Users',
+    },
+    {
+      value: 'repositories',
+      label: 'Repositories',
+    }
+  ];
+
   componentDidMount() {
-    if (this.props.location.pathname.indexOf('repositories') > -1) {
-      this.setState({ filterType: 'repositories' }); 
-      console.log(this.state)
+    const selectedSearchFilter = this.searchItems.find(
+      (searchItem) =>
+        this.props.location.pathname.indexOf(searchItem.value) > -1
+    );
+    if (selectedSearchFilter) {
+      this.setState({ filterType: selectedSearchFilter.value });
     }
   }
 
   startApiSearch = (textFilter: string, filterType: string) => {
-    if (textFilter.length >= 3) {
-      this.props.startSearch(textFilter, filterType);
+    if (textFilter.trim().length >= 3) {
+      this.props.startSearch(textFilter.trim(), filterType);
     }
-  }
+  };
 
   debouncedSearch = debounce((textFilter: string, filterType: string) => {
     this.startApiSearch(textFilter, filterType);
@@ -60,8 +74,11 @@ class Search extends Component<Props> {
             onChange={(e) => this.selectChangeHandler(e.target.value)}
             value={this.state.filterType}
           >
-            <option value="users">Users</option>
-            <option value="repositories">Repositories</option>
+            {this.searchItems.map((searchItem) => (
+              <option key={searchItem.value} value={searchItem.value}>
+                {searchItem.label}
+              </option>
+            ))}
           </select>
         </div>
         <div>Searching for {this.props.textFilter}</div>
