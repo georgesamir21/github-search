@@ -14,7 +14,6 @@ export const setFilter = (textFilter: string): AnyAction => ({
 });
 
 export const startApiSearch = (textFilter: string, filterType: string) => {
-  console.log(textFilter);
   return async (dispatch: ThunkDispatch<any, any, AnyAction>) => {
     const { data } = await axios.get(
       `${baseApiUrl}/${filterType}?q=${textFilter}`

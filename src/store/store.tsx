@@ -1,8 +1,16 @@
 import { createStore, Store, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import { persistStore, persistReducer, getStoredState } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 import usersReducer from './reducers/usersReducer';
 import reposReducer from './reducers/reposReducer';
 import filterReducer from './reducers/filterReducer';
+
+
+const persistConfig = {
+  key: 'root',
+  storage,
+}
 
 const reducer = combineReducers({
   users: usersReducer,
@@ -10,13 +18,22 @@ const reducer = combineReducers({
   filter: filterReducer,
 });
 
+const persistedReducer = persistReducer(persistConfig, reducer);
+
 export type AppState = ReturnType<typeof reducer>;
 
 const store: Store = createStore(
-  reducer,
+  persistedReducer,
   applyMiddleware(thunk)
 );
 
-store.subscribe(() => console.log(store.getState()));
+export const presistor = persistStore(store);
+
+export const getPresistedStoredState = () => getStoredState(persistConfig);
+// // presistor.subscribe(() => console.log())
+// store.subscribe(async () => {
+//   const s = await getStoredState(persistConfig);
+//   console.log('s', s)
+// });
 
 export default store;
