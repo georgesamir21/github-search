@@ -6,6 +6,8 @@ import { AppState } from '../../store/store';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import { setFilter, startApiSearch } from '../../store/actions/filter';
+
+import './Search.scss';
 class Search extends Component<Props> {
   state = {
     filterType: 'users',
@@ -55,22 +57,24 @@ class Search extends Component<Props> {
 
   render() {
     return (
-      <div>
-        <div className="search-title">
-          <img src="github_logo.png" alt="GitHub Logo" />
-          <div>
-            <h2>GitHub Searcher</h2>
+      <div className="search">
+        <div className="search__title">
+          <img className="search__tilte__image" src="github_logo.png" alt="GitHub Logo" />
+          <div className="search__title__text">
+            <h3>GitHub Searcher</h3>
             <p>Search users or reposatories below</p>
           </div>
         </div>
-        <div>
+        <div className="search__form">
           <input
+            className="search__form__input input-control"
             onChange={(e) => this.searchInputChangeHandler(e.target.value)}
             type="text"
             value={this.props.textFilter}
             placeholder="Start typing to search"
           />
           <select
+            className="search__form__input input-control"
             onChange={(e) => this.selectChangeHandler(e.target.value)}
             value={this.state.filterType}
           >
@@ -81,7 +85,6 @@ class Search extends Component<Props> {
             ))}
           </select>
         </div>
-        <div>Searching for {this.props.textFilter}</div>
       </div>
     );
   }

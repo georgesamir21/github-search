@@ -5,7 +5,7 @@ import { IReposatories } from '../../types/reposatoreis';
 import RepoCard from '../RepoCard/RepoCard';
 
 const Repositories = (props: Props) => (
-  <div>
+  <div className="search-result-container repositories-container">
     {props.reposatories.map((repo) => (
       <RepoCard key={repo.id} {...repo} />
     ))}

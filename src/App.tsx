@@ -6,7 +6,7 @@ import {
   Redirect
 } from 'react-router-dom';
 import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 import Users from './components/Users/Users';
 import Repositories from './components/Repositories/Repositories';
 import Search from './components/Search/Search';
