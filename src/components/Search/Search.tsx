@@ -5,9 +5,11 @@ import { debounce } from 'lodash';
 import { AppState } from '../../store/store';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
-import { setFilter, startApiSearch } from '../../store/actions/filter';
+import { setFilter, startApiSearch, clearSearchResults } from '../../store/actions/filter';
 
 import './Search.scss';
+import { clearUsersSearchResults } from '../../store/actions/users';
+import { clearRepositoriesSearchResults } from '../../store/actions/repos';
 class Search extends Component<Props> {
   state = {
     filterType: 'users',
@@ -37,6 +39,9 @@ class Search extends Component<Props> {
   startApiSearch = (textFilter: string, filterType: string) => {
     if (textFilter.trim().length >= 3) {
       this.props.startSearch(textFilter.trim(), filterType);
+    } else {
+      filterType === 'users' ? this.props.clearUsersSearch() : this.props.clearRepositoriesSearch();
+      // this.props.clearSearch(filterType);
     }
   };
 
@@ -97,6 +102,9 @@ interface LinkedStateProps {
 interface LinkedDispatchProps {
   onTextFilterChanged: (input: string) => void;
   startSearch: (textFilter: string, filterType: string) => void;
+  // clearSearch: (filterType: string) => void;
+  clearUsersSearch: () => void;
+  clearRepositoriesSearch: () => void;
 }
 
 type Props = LinkedStateProps & LinkedDispatchProps & RouteComponentProps;
@@ -113,6 +121,9 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
       dispatch(setFilter(textFilter)),
     startSearch: (textFilter: string, filterType: string) =>
       dispatch(startApiSearch(textFilter, filterType)),
+    // clearSearch: (filterType: string) => dispatch(clearSearchResults(filterType)),
+    clearUsersSearch: () => dispatch(clearUsersSearchResults()),
+    clearRepositoriesSearch: () => dispatch(clearRepositoriesSearchResults())
   };
 };
 

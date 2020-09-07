@@ -1,13 +1,15 @@
 import { Reducer, AnyAction } from 'redux';
-import { GET_REPOS } from '../actions/repos';
+import { GOT_REPOS, CLEAR_REPOSITORIES_SEARCH_RESULTS } from '../actions/repos';
 import { IReposatories } from '../../types/reposatoreis';
 
 const initialReposState: IReposatories[] = [];
 
 const reducer: Reducer = (state = initialReposState, action: AnyAction) => {
   switch (action.type) {
-    case GET_REPOS:
+    case GOT_REPOS:
       return action.result;
+    case CLEAR_REPOSITORIES_SEARCH_RESULTS:
+      return [];
     default:
       return state;
   }

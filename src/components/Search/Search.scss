@@ -1,14 +1,19 @@
 .search {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  height: inherit;
+  margin: 20px 10px;
 
-  margin-bottom: 20px;
-  
   .search__title {
     box-sizing: border-box;
     margin-bottom: 20px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    
+
     img.search__tilte__image {
       width: auto;
       height: 45px;
@@ -16,11 +21,11 @@
 
     .search__title__text {
       margin-left: 10px;
-      
+
       * {
         margin: 0;
       }
-      
+
       p {
         color: #a3a3a3;
       }
@@ -28,23 +33,22 @@
   }
 
   .search__form {
-    
-    .input-control {
-      box-sizing: border-box;
-      height: 45px;
-      padding: 10px;
+    &:first-child {
       margin-right: 10px;
+    }
+    .input-control {
+      padding: 10px;
       border: 1px solid #a3a3a3;
-      background: #FFFFFF;
-      
+      background: #ffffff;
+
       &:focus {
         outline: none;
       }
     }
-    
-    input {
-      width: 50%;
-      max-width: 355px;
-    }
+
+    // input {
+    //   width: 50%;
+    //   max-width: 355px;
+    // }
   }
 }

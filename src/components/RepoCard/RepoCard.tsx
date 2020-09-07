@@ -3,13 +3,13 @@ import { IReposatories } from '../../types/reposatoreis';
 
 const RepoCard = (props: IReposatories) => (
   <div className="card">
-    <div className="card_title">
-      <div className="card_title__item">
-        <h2>{props.name}</h2>
-        <small>{props.full_name}</small>
-      </div>
-    </div>
     <div className="card_content">
+      <div className="card_title">
+        <div className="card_title__item">
+          <h2>{props.name}</h2>
+          <small>{props.full_name}</small>
+        </div>
+      </div>
       <p className="card_content__item">{props.description}</p>
       <div className="card_content__item">
         Author:{' '}
@@ -18,14 +18,16 @@ const RepoCard = (props: IReposatories) => (
             {props.owner.login}
           </a>
         </b>
-        <br/>
-        <small>
-        {props.owner.type}
-        </small>
+        <br />
+        <small>{props.owner.type}</small>
       </div>
-      {props.fork ? <p className="card_content__item">
-        <b className="text_primary">Fork</b>
-      </p> : ''}
+      {props.fork ? (
+        <p className="card_content__item">
+          <b className="text_primary">Fork</b>
+        </p>
+      ) : (
+        ''
+      )}
       <p className="card_content__item">
         Stars: <b className="text_primary">{props.stargazers_count}</b>
       </p>
@@ -38,13 +40,7 @@ const RepoCard = (props: IReposatories) => (
       <p className="card_content__item">
         Issues: <b className="text_primary">{props.open_issues_count}</b>
       </p>
-      <a
-        className="card_content__item cta link"
-        href={props.html_url}
-        target="_blank"
-      >
-        View n GitHub!
-      </a>
+
       {/* <div className="card_content__item owner-details">
         <h3>Owner details</h3>
         <h3>
@@ -58,6 +54,15 @@ const RepoCard = (props: IReposatories) => (
           </small>
         </p>
       </div> */}
+    </div>
+    <div className="card__action">
+      <a
+        className="card_content__item cta link"
+        href={props.html_url}
+        target="_blank"
+      >
+        View n GitHub!
+      </a>
     </div>
   </div>
 );

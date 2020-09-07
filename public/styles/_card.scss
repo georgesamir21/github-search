@@ -1,12 +1,24 @@
 .card {
-  box-sizing: border-box;
   padding: 15px;
   border-radius: 6px;
   background: #ffffff;
-  margin: 0 10px 10px 0;
   transition: all 500ms ease-in-out;
+  margin-right: 1%;
   text-decoration: none;
   color: #00394d;
+  max-width: 33.3%;
+  flex: 0 28%;
+  margin-bottom: 20px;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @media screen and (max-width: 768px) {
+    max-width: 50%;
+    width: 40%;
+    flex: 0 1 40%;
+  }
 
   a {
     text-decoration: none;
@@ -33,7 +45,7 @@
     }
   }
 
-  .card_content {
+  .card__action {
     a.cta {
       border: solid 1px #f94f00;
       padding: 10px;
@@ -42,7 +54,7 @@
       border-radius: 6px;
       color: #f94f00;
       transition: all 300ms ease-in-out;
-      margin: auto;
+      // margin: auto;
       width: fit-content;
       display: block;
     }

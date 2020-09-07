@@ -1,10 +1,15 @@
 import { IReposatories } from '../../types/reposatoreis';
+import { AnyAction } from 'redux';
 
-export const GET_REPOS = 'GET_REPOS';
-
-export const gotRepos = (repos: IReposatories[]) => {
+export const GOT_REPOS = 'GOT_REPOS';
+export const CLEAR_REPOSITORIES_SEARCH_RESULTS = 'CLEAR_REPOSITORIES_SEARCH_RESULTS';
+export const gotRepos = (repos: IReposatories[]): AnyAction => {
   return {
-    type: GET_REPOS,
+    type: GOT_REPOS,
     result: repos,
   };
 };
+
+export const clearRepositoriesSearchResults = (): AnyAction => ({
+  type: CLEAR_REPOSITORIES_SEARCH_RESULTS,
+});
