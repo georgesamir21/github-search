@@ -6,10 +6,10 @@ import { AppState } from '../../store/store';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import { setFilter, startApiSearch } from '../../store/actions/filter';
-
-import './Search.scss';
 import { clearUsersSearchResults } from '../../store/actions/users';
 import { clearRepositoriesSearchResults } from '../../store/actions/repos';
+import './Search.scss';
+
 class Search extends Component<Props> {
   state = {
     filterType: 'users',
@@ -23,7 +23,7 @@ class Search extends Component<Props> {
     {
       value: 'repositories',
       label: 'Repositories',
-    }
+    },
   ];
 
   componentDidMount() {
@@ -40,7 +40,9 @@ class Search extends Component<Props> {
     if (textFilter.trim().length >= 3) {
       this.props.startSearch(textFilter.trim(), filterType);
     } else {
-      filterType === 'users' ? this.props.clearUsersSearch() : this.props.clearRepositoriesSearch();
+      filterType === 'users'
+        ? this.props.clearUsersSearch()
+        : this.props.clearRepositoriesSearch();
     }
   };
 
@@ -63,7 +65,11 @@ class Search extends Component<Props> {
     return (
       <div className="search">
         <div className="search__title">
-          <img className="search__tilte__image" src="github_logo.png" alt="GitHub Logo" />
+          <img
+            className="search__tilte__image"
+            src="github_logo.png"
+            alt="GitHub Logo"
+          />
           <div className="search__title__text">
             <h3>GitHub Searcher</h3>
             <p>Search users or reposatories below</p>
@@ -120,7 +126,7 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
     startSearch: (textFilter: string, filterType: string) =>
       dispatch(startApiSearch(textFilter, filterType)),
     clearUsersSearch: () => dispatch(clearUsersSearchResults()),
-    clearRepositoriesSearch: () => dispatch(clearRepositoriesSearchResults())
+    clearRepositoriesSearch: () => dispatch(clearRepositoriesSearchResults()),
   };
 };
 

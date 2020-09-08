@@ -1,11 +1,10 @@
 import { createStore, Store, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { persistStore, persistReducer, getStoredState } from 'redux-persist'
+import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import usersReducer from './reducers/usersReducer';
 import reposReducer from './reducers/reposReducer';
 import filterReducer from './reducers/filterReducer';
-
 
 const persistConfig = {
   key: 'root',

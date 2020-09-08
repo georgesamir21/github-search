@@ -48,7 +48,7 @@ const RepoCard = (props: IReposatories) => (
         target="_blank"
         rel="noopener noreferrer"
       >
-        View n GitHub!
+        View on GitHub!
       </a>
     </div>
   </div>
