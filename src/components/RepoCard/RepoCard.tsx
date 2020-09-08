@@ -14,7 +14,7 @@ const RepoCard = (props: IReposatories) => (
       <div className="card_content__item">
         Author:{' '}
         <b className="text_primary">
-          <a href={props.owner.html_url} target="_blank">
+          <a href={props.owner.html_url} target="_blank" rel="noopener noreferrer">
             {props.owner.login}
           </a>
         </b>
@@ -40,26 +40,13 @@ const RepoCard = (props: IReposatories) => (
       <p className="card_content__item">
         Issues: <b className="text_primary">{props.open_issues_count}</b>
       </p>
-
-      {/* <div className="card_content__item owner-details">
-        <h3>Owner details</h3>
-        <h3>
-          <a href={props.owner.html_url} target="_blank">
-            {props.owner.login}
-          </a>
-        </h3>
-        <p>
-          <small>
-            Type: <b className="text_primary">{props.owner.type}</b>
-          </small>
-        </p>
-      </div> */}
     </div>
     <div className="card__action">
       <a
         className="card_content__item cta link"
         href={props.html_url}
         target="_blank"
+        rel="noopener noreferrer"
       >
         View n GitHub!
       </a>

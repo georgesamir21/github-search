@@ -1,8 +1,6 @@
 import React from 'react';
 import { IUsers } from '../../types/users';
 
-// type Props = IUsers;
-
 const UserCard = (props: IUsers) => (
   <div className="card users-card">
     <div className="card_content">
@@ -25,8 +23,9 @@ const UserCard = (props: IUsers) => (
         className="card_content__item cta link"
         href={props.html_url}
         target="_blank"
+        rel="noopener noreferrer"
       >
-        View n GitHub!
+        View on GitHub!
       </a>
     </div>
   </div>

@@ -29,11 +29,4 @@ const store: Store = createStore(
 
 export const presistor = persistStore(store);
 
-export const getPresistedStoredState = () => getStoredState(persistConfig);
-// // presistor.subscribe(() => console.log())
-// store.subscribe(async () => {
-//   const s = await getStoredState(persistConfig);
-//   console.log('s', s)
-// });
-
 export default store;
