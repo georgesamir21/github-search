@@ -1,6 +1,36 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# GitHub Searcher
 
-## Available Scripts
+This repo uses [GitHub API](https://developer.github.com/v3/search/) to search for Users or Repositories.
+
+## Project Structure
+
+```
+├── public
+│   └── styles
+├── src
+│   ├── App.tsx
+│   ├── components/
+│   ├── environment/
+│   ├── index.css
+│   ├── index.tsx
+│   ├── logo.svg
+│   ├── react-app-env.d.ts
+│   ├── serviceWorker.ts
+│   ├── setupTests.ts
+│   ├── store/
+│   │   ├── actions/
+│   │   ├── reducers/
+│   │   └── store.tsx/
+│   └── types
+├── README.md
+├── tsconfig.json
+├── tslint.json
+└── yarn.lock
+```
+
+_This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)._
+
+### Available Scripts
 
 In the project directory, you can run:
 
@@ -11,6 +41,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
+
+### `yarn lint`
+
+Lints the app according to the conigurations in `tslint.json` file.
 
 ### `yarn test`
 

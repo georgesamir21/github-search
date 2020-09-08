@@ -38,7 +38,7 @@ class Search extends Component<Props> {
 
   startApiSearch = (textFilter: string, filterType: string) => {
     if (textFilter.trim().length >= 3) {
-      this.props.startSearch(textFilter.trim(), filterType);
+      this.props.startSearch(textFilter.trim().replace(/ /g, '+'), filterType);
     } else {
       filterType === 'users'
         ? this.props.clearUsersSearch()
